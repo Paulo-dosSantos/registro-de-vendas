@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class RegistroDeVendasComSpringBootApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void testMain() {
+		RegistroDeVendasComSpringBootApplication.main(new String[] {});
 	}
 
 }
