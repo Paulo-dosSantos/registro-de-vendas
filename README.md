@@ -1,0 +1,1 @@
+Este projeto está sendo criado tendo como inspiração o meu projeto "cadastro-de-vendas-com-springboot". O intuito é reaquecer meu conhecimento em Spring Boot, além de utilizar meus conhecimentos em testes unitários que adquiri recentemente(não estando presente no projeto original) 
