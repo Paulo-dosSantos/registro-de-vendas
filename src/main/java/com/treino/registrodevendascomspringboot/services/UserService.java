@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.treino.registrodevendascomspringboot.entities.User;
 import com.treino.registrodevendascomspringboot.entities.dto.UserDTO;
 import com.treino.registrodevendascomspringboot.repositories.UserRepository;
+import com.treino.registrodevendascomspringboot.services.exceptions.DataException;
 import com.treino.registrodevendascomspringboot.services.exceptions.DataIntegrityViolationException;
 import com.treino.registrodevendascomspringboot.services.exceptions.ObjectNotFoundException;
 
@@ -33,6 +34,7 @@ public class UserService {
 		
 	}
 	public User update(UserDTO obj) {
+		analyzeNumber(obj);
 		findByEmail(obj);
 		return userRepository.save(mapper.map(obj, User.class));
 		
@@ -51,10 +53,20 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	public User insert(UserDTO obj) {
+		analyzeNumber(obj);
 		findByEmail(obj);
+		
 		
 		return userRepository.save(mapper.map(obj, User.class));
 	}
-	
+	public void analyzeNumber(UserDTO obj) {
+		 
+		String number=obj.getPhone();
+		
+		if(number.length()>10) {
+			throw new DataException("o número de telefone deve ter até 10 caracteres");
+		}
+		
+	}
 
 }

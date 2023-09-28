@@ -1,13 +1,13 @@
 package com.treino.registrodevendascomspringboot.services.exceptions;
 
-public class IllegalArgumentException extends RuntimeException{
+public class DataException extends RuntimeException{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public IllegalArgumentException(String msg) {
+	public DataException(String msg) {
 		super(msg);
 	}
 

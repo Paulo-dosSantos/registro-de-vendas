@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.treino.registrodevendascomspringboot.services.exceptions.DataException;
 import com.treino.registrodevendascomspringboot.services.exceptions.DataIntegrityViolationException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,4 +32,13 @@ public class ResourceExceptionHandler {
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
+
+@ExceptionHandler(DataException.class)
+public ResponseEntity<StandardError>dataException(
+		DataException ex, HttpServletRequest request){
+	StandardError erro= new StandardError(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(),
+			ex.getMessage(), request.getRequestURI());
+	
+	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+}
 }
