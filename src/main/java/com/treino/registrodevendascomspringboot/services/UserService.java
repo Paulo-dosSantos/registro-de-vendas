@@ -51,7 +51,7 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	public User insert(UserDTO obj) {
-		
+		findByEmail(obj);
 		
 		return userRepository.save(mapper.map(obj, User.class));
 	}
