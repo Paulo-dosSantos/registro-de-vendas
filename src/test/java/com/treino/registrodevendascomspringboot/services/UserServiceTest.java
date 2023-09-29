@@ -34,9 +34,9 @@ class UserServiceTest {
 	
 	private static final String EXCEPTION_NUMBER = "o número de telefone deve ter até 10 caracteres";
 
-	private static final String ESTE_E_MAIL_JA_ESTÁ_CADASTRADO = "Este e-mail já está cadastrado";
+	private static final String EXCEPTION_EMAIL = "Este e-mail já está cadastrado";
 
-	private static final String EXCECAO = "Objeto não encontrado";
+	private static final String EXCEPTION_OBJECT_NOT_FOUND = "Objeto não encontrado";
 
 	private static final String PASSWORD = "hellblazer";
 
@@ -154,7 +154,7 @@ class UserServiceTest {
 	@Test
 	public void testFindByIdObjectNotFoundException() {
 		 when(repository.findById(anyLong())).thenThrow(
-				 new ObjectNotFoundException(EXCECAO));
+				 new ObjectNotFoundException(EXCEPTION_OBJECT_NOT_FOUND));
 		 
 		 try {
 			 service.findById(ID);
@@ -162,7 +162,7 @@ class UserServiceTest {
 		 }
 		 catch(Exception e) {
 			 assertEquals(ObjectNotFoundException.class,e.getClass());
-			 assertEquals(EXCECAO,e.getMessage());
+			 assertEquals(EXCEPTION_OBJECT_NOT_FOUND,e.getMessage());
 			 
 		 }
 	}
@@ -178,7 +178,7 @@ class UserServiceTest {
 		}
 		catch(Exception ex) {
 			assertEquals(DataIntegrityViolationException.class,ex.getClass());
-			assertEquals(ESTE_E_MAIL_JA_ESTÁ_CADASTRADO,ex.getMessage());
+			assertEquals(EXCEPTION_EMAIL,ex.getMessage());
 		}
 		
 		
@@ -186,7 +186,7 @@ class UserServiceTest {
 	@Test
 	public void testDeleteObjectNotFoundException() {
 		 when(repository.findById(anyLong())).thenThrow(
-				 new ObjectNotFoundException(EXCECAO));
+				 new ObjectNotFoundException(EXCEPTION_OBJECT_NOT_FOUND));
 		 
 		 try {
 			 service.delete(ID);
@@ -194,7 +194,7 @@ class UserServiceTest {
 		 }
 		 catch(Exception e) {
 			 assertEquals(ObjectNotFoundException.class,e.getClass());
-			 assertEquals(EXCECAO,e.getMessage());
+			 assertEquals(EXCEPTION_OBJECT_NOT_FOUND,e.getMessage());
 			 
 		 }
 	}
