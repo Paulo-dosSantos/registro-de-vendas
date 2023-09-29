@@ -30,6 +30,7 @@ public class UserService {
 		
 		Optional<User>user=userRepository.findById(id);
 		
+
 		return user.orElseThrow(()->new ObjectNotFoundException("Objeto não encontrado"));
 		
 	}

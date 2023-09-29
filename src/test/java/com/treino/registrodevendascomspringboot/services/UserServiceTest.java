@@ -25,12 +25,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.treino.registrodevendascomspringboot.entities.User;
 import com.treino.registrodevendascomspringboot.entities.dto.UserDTO;
 import com.treino.registrodevendascomspringboot.repositories.UserRepository;
+import com.treino.registrodevendascomspringboot.services.exceptions.DataException;
 import com.treino.registrodevendascomspringboot.services.exceptions.DataIntegrityViolationException;
 import com.treino.registrodevendascomspringboot.services.exceptions.ObjectNotFoundException;
 
 @SpringBootTest
 class UserServiceTest {
 	
+	private static final String EXCEPTION_NUMBER = "o número de telefone deve ter até 10 caracteres";
+
 	private static final String ESTE_E_MAIL_JA_ESTÁ_CADASTRADO = "Este e-mail já está cadastrado";
 
 	private static final String EXCECAO = "Objeto não encontrado";
@@ -150,7 +153,7 @@ class UserServiceTest {
 	}
 	@Test
 	public void testFindByIdObjectNotFoundException() {
-		 when(repository.findById(null)).thenThrow(
+		 when(repository.findById(anyLong())).thenThrow(
 				 new ObjectNotFoundException(EXCECAO));
 		 
 		 try {
@@ -194,6 +197,20 @@ class UserServiceTest {
 			 assertEquals(EXCECAO,e.getMessage());
 			 
 		 }
+	}
+	@Test
+	public void testNumberAnalyze() {
+		when(repository.save(any())).thenThrow(new DataException
+				(EXCEPTION_NUMBER));
+		
+		try {
+			repository.save(user);
+		}
+		catch(Exception ex) {
+			assertEquals(DataException.class,ex.getClass());
+			assertEquals(EXCEPTION_NUMBER,ex.getMessage());
+			
+		}
 	}
 
 }
