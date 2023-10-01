@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name="tb_user")
 public class User implements Serializable{
 	
@@ -38,8 +37,21 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="client")
-	private List<Order> order=new ArrayList<>();
+	private List<Order> orders=new ArrayList<>();
+
+
+	public User(Long id, String name, String email, String phone, String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+	}
+	
+	
 
 }
