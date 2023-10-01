@@ -50,10 +50,10 @@ public class Order implements Serializable {
 	public void setMoment(Instant moment) {
 		this.moment = moment;
 	}
-	public User getclient() {
+	public User getClient() {
 		return client;
 	}
-	public void setclient(User client) {
+	public void setClient(User client) {
 		this.client = client;
 	}
 	public OrderStatus getOrderStatus() {
