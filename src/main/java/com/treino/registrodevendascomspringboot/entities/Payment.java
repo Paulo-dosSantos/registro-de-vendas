@@ -1,7 +1,7 @@
 package com.treino.registrodevendascomspringboot.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,7 +29,7 @@ public class Payment implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private LocalDate moment;
+	private Instant moment;
 	
 	@JsonIgnore
 	@OneToOne

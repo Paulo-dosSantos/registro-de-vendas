@@ -14,7 +14,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Entity
@@ -36,6 +38,8 @@ public class Order implements Serializable {
 	private Integer orderStatus;
 	
 	@OneToOne(mappedBy ="order",cascade=CascadeType.ALL)
+	@Getter
+	@Setter
 	private Payment payment;
 	
 	public Order(Long id, Instant moment, User client, OrderStatus orderStatus) {
