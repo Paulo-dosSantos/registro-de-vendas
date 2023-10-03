@@ -14,7 +14,7 @@ import com.treino.registrodevendascomspringboot.entities.Product;
 import com.treino.registrodevendascomspringboot.services.ProductService;
 
 @RestController
-@RequestMapping(value="/categories")
+@RequestMapping(value="/products")
 public class ProductResource {
 	
 	@Autowired
