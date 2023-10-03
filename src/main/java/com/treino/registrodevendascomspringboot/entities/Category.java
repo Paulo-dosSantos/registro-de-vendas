@@ -12,14 +12,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Entity
 @Table(name="tb_category")
-@AllArgsConstructor
 @Data
 public class Category implements Serializable {
 
@@ -34,7 +32,14 @@ public class Category implements Serializable {
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy="categories")
+	
 	private Set<Product>products=new HashSet<>();
+
+	public Category(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 	
 	
 
