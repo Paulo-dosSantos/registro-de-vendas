@@ -34,8 +34,9 @@ public class UserService {
 		return user.orElseThrow(()->new ObjectNotFoundException("Objeto não encontrado"));
 		
 	}
-	public User update(UserDTO obj) {
+	public User update(Long id,UserDTO obj) {
 		analyzeNumber(obj);
+		obj.setId(id);
 		findByEmail(obj);
 		return userRepository.save(mapper.map(obj, User.class));
 		
@@ -43,12 +44,14 @@ public class UserService {
 	
 	private void findByEmail(UserDTO obj) {
 		
-		Optional<User>user=userRepository.findByEmail(obj.getEmail());
-		
-		if(user.isPresent()) {
+
+Optional<User>user=userRepository.findByEmail(obj.getEmail());
+		User entity= userRepository.getReferenceById(obj.getId());
+		if(user.isPresent()&& !user.get().getId().equals(entity.getId())) {
 			 throw new DataIntegrityViolationException("Este e-mail já está cadastrado")
 ;		}
 		
+	
 	}
 	public void delete(Long id) {
 		userRepository.deleteById(id);

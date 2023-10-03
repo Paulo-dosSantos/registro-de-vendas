@@ -119,7 +119,7 @@ class UserServiceTest {
 	void testUpdate() {
 		when(repository.save(any())).thenReturn(user);
 		
-		User response=service.update(userDTO);
+		User response=service.update(ID,userDTO);
 		
 		assertNotNull(response);
 		assertEquals(ID,response.getId());
@@ -169,7 +169,8 @@ class UserServiceTest {
 	@Test
 	public void testUpdateDataIntegrityViolationExeption() {
 		when(repository.findByEmail(anyString()))
-		.thenReturn(optionalUser);
+		.thenThrow(new DataIntegrityViolationException
+				("Este e-mail já está cadastrado"));
 		
 		try {
 			optionalUser.get().setId(2L);

@@ -94,7 +94,7 @@ class UserResourceTest {
 
 	@Test
 	void testUpdate() {
-		when(service.update(any())).thenReturn(user);
+		when(service.update(anyLong(),any())).thenReturn(user);
 		when(mapper.map(any(), any())).thenReturn(userDTO);
 		ResponseEntity<UserDTO>response=resource.update(ID, userDTO);
 		assertNotNull(response);
