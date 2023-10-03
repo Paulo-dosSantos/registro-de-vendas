@@ -5,12 +5,14 @@ import java.time.Instant;
 
 import com.treino.registrodevendascomspringboot.entities.enums.OrderStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
 
@@ -32,6 +34,10 @@ public class Order implements Serializable {
 	private User client;
 	
 	private Integer orderStatus;
+	
+	@OneToOne(mappedBy ="order",cascade=CascadeType.ALL)
+	private Payment payment;
+	
 	public Order(Long id, Instant moment, User client, OrderStatus orderStatus) {
 		super();
 		this.id = id;
