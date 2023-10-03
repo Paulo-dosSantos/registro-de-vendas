@@ -20,10 +20,10 @@ public class CategoryService {
 	}
 	public Category findById(Long id) {
 		
-		Optional<Category> order=categoryRepository.findById(id);
+		Optional<Category> category=categoryRepository.findById(id);
 		
 
-		return order.get();
+		return category.get();
 		
 	}
 	
