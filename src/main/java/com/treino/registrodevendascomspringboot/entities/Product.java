@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 @Table(name="tb_product")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Product implements Serializable{
 
 	
