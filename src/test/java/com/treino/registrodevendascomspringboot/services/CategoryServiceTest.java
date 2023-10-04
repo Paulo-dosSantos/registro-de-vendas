@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.treino.registrodevendascomspringboot.entities.Category;
 import com.treino.registrodevendascomspringboot.repositories.CategoryRepository;
+import com.treino.registrodevendascomspringboot.services.exceptions.ObjectNotFoundException;
 
 @SpringBootTest
 class CategoryServiceTest {
@@ -25,6 +26,8 @@ class CategoryServiceTest {
 	private static final String NAME = "Books";
 
 	private static final long ID = 1L;
+
+	private static final String OBJECT_NOT_FOUND = "Objeto não encontrado";
 
 	@InjectMocks
 	private CategoryService service;
@@ -81,5 +84,18 @@ class CategoryServiceTest {
 		assertEquals(ID, response.getId());
 		assertEquals(NAME, response.getName());
 	}
+	@Test
+	public void testObjectNotFoundException() {
+		when(repository.findById(anyLong())).
+		thenThrow(new ObjectNotFoundException(OBJECT_NOT_FOUND));
+	
+		try {
+			service.findById(1L);
+		}
+		catch(Exception ex) {
+			assertEquals(ObjectNotFoundException.class,ex.getClass());
+			assertEquals(OBJECT_NOT_FOUND,ex.getMessage());
+			
+		}}
 
 }

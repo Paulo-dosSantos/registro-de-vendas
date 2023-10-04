@@ -20,9 +20,12 @@ import com.treino.registrodevendascomspringboot.entities.Order;
 import com.treino.registrodevendascomspringboot.entities.User;
 import com.treino.registrodevendascomspringboot.entities.enums.OrderStatus;
 import com.treino.registrodevendascomspringboot.repositories.OrderRepository;
+import com.treino.registrodevendascomspringboot.services.exceptions.ObjectNotFoundException;
 
 class OrderServiceTest {
 	
+	private static final String OBJECT_NOT_FOUND = "Objeto não encontrado";
+
 	@InjectMocks
 	private OrderService service;
 	
@@ -94,6 +97,30 @@ class OrderServiceTest {
 		assertEquals(response.getMoment(),order1.getMoment());
 		assertEquals(response.getClient(),order1.getClient());
 		
+	}
+	@Test
+	public void testObjectNotFoundException() {
+		when(repository.findById(anyLong())).
+		thenThrow(new ObjectNotFoundException(OBJECT_NOT_FOUND));
+	
+		try {
+			service.findById(1L);
+		}
+		catch(Exception ex) {
+			assertEquals(ObjectNotFoundException.class,ex.getClass());
+			assertEquals(OBJECT_NOT_FOUND,ex.getMessage());
+			
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 
 }

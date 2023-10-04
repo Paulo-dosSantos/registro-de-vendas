@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.treino.registrodevendascomspringboot.entities.Order;
 import com.treino.registrodevendascomspringboot.entities.Product;
 import com.treino.registrodevendascomspringboot.repositories.ProductRepository;
+import com.treino.registrodevendascomspringboot.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ProductService {
@@ -24,7 +25,7 @@ public class ProductService {
 		Optional<Product> product=productRepository.findById(id);
 		
 
-		return product.get();
+		return product.orElseThrow(()->new ObjectNotFoundException("Objeto não encontrado") );
 		
 	}
 	

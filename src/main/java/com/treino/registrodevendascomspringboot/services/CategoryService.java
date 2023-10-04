@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.treino.registrodevendascomspringboot.entities.Category;
 import com.treino.registrodevendascomspringboot.repositories.CategoryRepository;
+import com.treino.registrodevendascomspringboot.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoryService {
@@ -23,7 +24,7 @@ public class CategoryService {
 		Optional<Category> category=categoryRepository.findById(id);
 		
 
-		return category.get();
+		return category.orElseThrow(()->new ObjectNotFoundException("Objeto não encontrado") );
 		
 	}
 	

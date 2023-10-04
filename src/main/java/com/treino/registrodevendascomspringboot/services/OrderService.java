@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.treino.registrodevendascomspringboot.entities.Order;
 import com.treino.registrodevendascomspringboot.repositories.OrderRepository;
+import com.treino.registrodevendascomspringboot.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class OrderService {
@@ -23,7 +24,7 @@ public class OrderService {
 		Optional<Order> order=orderRepository.findById(id);
 		
 
-		return order.get();
+		return order.orElseThrow(()->new ObjectNotFoundException("Objeto não encontrado") );
 		
 	}
 	
