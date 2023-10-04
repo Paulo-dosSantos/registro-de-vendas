@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.treino.registrodevendascomspringboot.entities.Category;
-import com.treino.registrodevendascomspringboot.entities.Order;
 import com.treino.registrodevendascomspringboot.services.CategoryService;
 
 @RestController
