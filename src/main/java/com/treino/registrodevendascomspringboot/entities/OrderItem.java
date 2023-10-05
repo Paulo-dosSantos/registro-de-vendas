@@ -17,7 +17,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name="tb_order_item")
-@EqualsAndHashCode(of= {"quantity","price"})
+@EqualsAndHashCode(of= {"id"})
+@Getter
 public class OrderItem implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -25,7 +26,6 @@ public class OrderItem implements Serializable{
 	@EmbeddedId
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
-	
 	private OrderItemPK id=new OrderItemPK();
 	private Integer quantity;
 	private Double price;

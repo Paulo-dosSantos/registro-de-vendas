@@ -3,8 +3,10 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.treino.registrodevendascomspringboot.entities.enums.OrderStatus;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -24,6 +27,7 @@ import lombok.Setter;
 @Entity
 @Table(name="tb_order")
 @Data
+@EqualsAndHashCode(callSuper = false, of= {"id"})
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
