@@ -46,7 +46,7 @@ public class TestConfig implements CommandLineRunner{
 				"johnzinho@gmail.com", "2194938932", "hellblazer");
 			
 			User u2=new User(null, "Bruce Wayne",
-					"waynetech@gmail.com", "2194252545", "coringa_de_calcinha");
+					"waynetech@gmail.com", "2194252545", "coringa");
 
 			
 			
