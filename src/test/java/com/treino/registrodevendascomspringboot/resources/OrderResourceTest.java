@@ -3,6 +3,7 @@ package com.treino.registrodevendascomspringboot.resources;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.time.Instant;
@@ -63,6 +64,8 @@ class OrderResourceTest {
 	 order3 = new Order(3L, Instant.parse("2019-07-22T15:21:22Z"), usuario1, 
 			 OrderStatus.WAITING_PAYMENT); 
 	 
+	
+	 
 		
 	}
 
@@ -80,12 +83,22 @@ class OrderResourceTest {
 		assertEquals(User.class,response.getBody().get(0).getClient().getClass());
 		assertEquals(OrderStatus.class,response.getBody().get(0).getOrderStatus().getClass());
 		assertEquals(HttpStatus.OK,response.getStatusCode());
-		assertEquals(ArrayList.class,response.getBody().getClass());
 	}
 
 	@Test
 	void testFindById() {
-		fail("Not yet implemented");
+		when(service.findById(anyLong())).thenReturn(order1);
+		
+		ResponseEntity<Order>response=resource.findById(2L);
+		assertNotNull(response);
+		assertEquals(ResponseEntity.class,response.getClass());
+		assertEquals(Order.class,response.getBody().getClass());
+		assertEquals(Instant.class,response.getBody().getMoment().getClass());
+		assertEquals(User.class,response.getBody().getClient().getClass());
+		assertEquals(OrderStatus.class,response.getBody().getOrderStatus().getClass());
+		assertEquals(HttpStatus.OK,response.getStatusCode());
+	
+	
 	}
 
 }
