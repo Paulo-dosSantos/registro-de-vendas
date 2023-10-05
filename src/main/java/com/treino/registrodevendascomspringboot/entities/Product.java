@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,8 +15,11 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="tb_product")
@@ -22,7 +27,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Product implements Serializable{
 
-	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -40,17 +44,25 @@ public class Product implements Serializable{
 	private Set<Category>categories= new HashSet<>();
 	
 	@OneToMany(mappedBy ="id.product")
+	@Setter(AccessLevel.NONE)
+	@Getter(AccessLevel.NONE)
 	private Set<OrderItem>items=new HashSet<>();
 
 	public Product(Long id, String name, String description, Double price, String imgUrl) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.imgUrl = imgUrl;
 	}
-	
+	@JsonIgnore
+	public Set<Order>getOrders(){
+		Set<Order>set=new HashSet<>();
+		for(OrderItem item: items) {
+			set.add(item.getOrder());
+		}
+		return set;
+	}
 	
 	
 	
