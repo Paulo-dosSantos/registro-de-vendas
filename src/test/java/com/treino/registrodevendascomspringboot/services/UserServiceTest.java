@@ -113,6 +113,7 @@ class UserServiceTest {
 		assertEquals(NAME, response.getName());
 	    assertEquals(EMAIL, response.getEmail());
 	    assertEquals(PASSWORD,response.getPassword());
+	    assertEquals(PHONE,response.getPhone());
 	}
 
 	@Test
@@ -141,7 +142,7 @@ class UserServiceTest {
 	@Test
 	void testInsert() {
 		when(repository.save(any())).thenReturn(user);
-		User response=service.insert(userDTO);
+		User response=service.insert(user);
 		
 		assertNotNull(response);
 		assertEquals(User.class,response.getClass());
@@ -174,7 +175,7 @@ class UserServiceTest {
 		
 		try {
 			optionalUser.get().setId(2L);
-			service.insert(userDTO);
+			service.insert(user);
 			
 		}
 		catch(Exception ex) {

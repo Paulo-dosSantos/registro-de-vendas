@@ -2,7 +2,6 @@ package com.treino.registrodevendascomspringboot.resources;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
@@ -148,7 +147,7 @@ class UserResourceTest {
 		
 		when(service.insert(any())).thenReturn(user);
 		
-		ResponseEntity<UserDTO>response=resource.insert(userDTO);
+		ResponseEntity<User>response=resource.insert(user);
 		assertEquals(HttpStatus.CREATED,response.getStatusCode());
 		assertNotNull(response.getHeaders().get("Location"));
 		assertEquals(ResponseEntity.class,response.getClass());
