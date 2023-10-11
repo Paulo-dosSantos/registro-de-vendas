@@ -35,13 +35,11 @@ public class UserService {
 		User objUser=mapper.map(obj, User.class);
 		analyzeNumber(objUser);
 		findByEmail(objUser);
-		analyzeNumber(objUser);
 		return userRepository.save(objUser);
 	}
 	private void findByEmail(User obj) {
 		Optional<User>user=userRepository.findByEmail(obj.getEmail());
-		User entity= userRepository.getReferenceById(obj.getId());
-		if(user.isPresent()&& !user.get().getId().equals(entity.getId())) {
+		if(user.isPresent()&& !(user.get().getId().equals(obj.getId()))) {
 			 throw new DataIntegrityViolationException("Este e-mail já está cadastrado");		}
 	}
 	public void delete(Long id) {
@@ -50,8 +48,8 @@ public class UserService {
 	public User insert(User obj) {
 		analyzeNumber(obj);
 		findByEmail(obj);
-		
-		return userRepository.save(obj);
+		User savedUser= userRepository.save(obj);
+		return savedUser;
 	}
 	public void analyzeNumber(User obj) { 
 		String number=obj.getPhone();
