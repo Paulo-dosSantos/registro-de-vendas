@@ -18,7 +18,8 @@ import com.treino.registrodevendascomspringboot.entities.User;
 import com.treino.registrodevendascomspringboot.entities.dto.UserDTO;
 import com.treino.registrodevendascomspringboot.services.UserService;
 import com.treino.registrodevendascomspringboot.util.MediaType;
-
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 @RequestMapping(value="/users")
 public class UserResource {
@@ -31,33 +32,32 @@ public class UserResource {
 	
 	@GetMapping(produces= {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON,MediaType.APPLICATION_YML})
 	public ResponseEntity<List<UserDTO>>findAll(){
-		List<UserDTO>usersDTO=service.findAll()
-				.stream().map(x-> mapper.map(x, UserDTO.class))
-				.collect(Collectors.toList());
+		List<User>users=service.findAll();
+		List<UserDTO>usersDTO=users.stream().map(x->mapper.map(x, UserDTO.class)).collect(Collectors.toList());
+		usersDTO.stream().forEach(x->x.add(linkTo(methodOn(UserResource.class).findById(x.getId())).withSelfRel()));
 		return ResponseEntity.ok().body(usersDTO);
 	}
 	@GetMapping(value="/{id}",produces= {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON,MediaType.APPLICATION_YML})
 	public ResponseEntity<UserDTO>findById(@PathVariable Long id){
-		User user= service.findById(id);
-		return ResponseEntity.ok().body(mapper.map(user, UserDTO.class));
+		UserDTO userDTO= mapper.map(service.findById(id), UserDTO.class);
+		userDTO.add(linkTo(methodOn(UserResource.class).findAll()).withRel("Lista de usuários: "));
+		return ResponseEntity.ok().body(userDTO);
 	}
 	@PutMapping(value="/{id}",consumes= {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON,MediaType.APPLICATION_YML}
 	,produces= {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON,MediaType.APPLICATION_YML})
 	public ResponseEntity<UserDTO>update(@PathVariable Long id, @RequestBody UserDTO user){
 		user.setId(id);
-		User newUser= service.update(id,user);
-		return ResponseEntity.ok().body(mapper.map(newUser, UserDTO.class));
+		UserDTO newUser= mapper.map(service.update(id,user), UserDTO.class );
+		newUser.add(linkTo(methodOn(UserResource.class).findById(id)).withSelfRel());
+		return ResponseEntity.ok().body(newUser);
 	}
 	@PostMapping(consumes= {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON,MediaType.APPLICATION_YML}
 	,produces= {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON,MediaType.APPLICATION_YML})
-	public ResponseEntity<User>insert(@RequestBody User user){
-		user= service.insert(user);
-		URI uri= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
-		return ResponseEntity.created(uri).body(user);
-		
-		/*URI uri= ServletUriComponentsBuilder.
-				fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
-		*/
+	public ResponseEntity<UserDTO>insert(@RequestBody User user){
+		UserDTO userDTO=mapper.map(service.insert(user), UserDTO.class) ;
+		URI uri= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.getId()).toUri();
+		userDTO.add(linkTo(methodOn(UserResource.class).findById(userDTO.getId())).withSelfRel());
+		return ResponseEntity.created(uri).body(userDTO);
 	}
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<UserDTO>delete(@PathVariable Long id){	

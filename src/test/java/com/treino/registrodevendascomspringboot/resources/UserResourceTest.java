@@ -68,7 +68,7 @@ class UserResourceTest {
 
 	private void startUser() {
 		user=new User(ID, NAME, EMAIL,PHONE, PASSWORD);
-		userDTO= new UserDTO(1L, NAME, EMAIL,PHONE, PASSWORD);
+		userDTO= new UserDTO(1L, NAME, EMAIL,PHONE);
 		
 	}
 
@@ -87,7 +87,6 @@ class UserResourceTest {
 		assertEquals(ID,response.getBody().get(0).getId());
 		assertEquals(NAME,response.getBody().get(0).getName());
 		assertEquals(EMAIL,response.getBody().get(0).getEmail());
-		assertEquals(PASSWORD,response.getBody().get(0).getPassword());
 		
 	}
 
@@ -104,8 +103,7 @@ class UserResourceTest {
 		assertEquals(ID,response.getBody().getId());
 		assertEquals(NAME,response.getBody().getName());
 		assertEquals(EMAIL,response.getBody().getEmail());
-		assertEquals(PASSWORD,response.getBody().getPassword());
-	}
+}
 
 	@Test
 	void testFindById() {
@@ -123,7 +121,6 @@ class UserResourceTest {
 		assertEquals(ID,response.getBody().getId());
 		assertEquals(NAME,response.getBody().getName());
 		assertEquals(EMAIL,response.getBody().getEmail());
-		assertEquals(PASSWORD,response.getBody().getPassword());
 		assertEquals(PHONE,response.getBody().getPhone());
 	}
 
@@ -145,12 +142,13 @@ class UserResourceTest {
 	@Test
 	void testInsert() {
 		
-		when(service.insert(any())).thenReturn(user);
-		
-		ResponseEntity<User>response=resource.insert(user);
+		when(service.insert(any(User.class))).thenReturn(user);
+		when(mapper.map(any(), any())).thenReturn(UserDTO.class);
+		ResponseEntity<UserDTO>response=resource.insert(user);
 		assertEquals(HttpStatus.CREATED,response.getStatusCode());
 		assertNotNull(response.getHeaders().get("Location"));
 		assertEquals(ResponseEntity.class,response.getClass());
+		assertEquals(UserDTO.class,response.getBody().getClass());
 	}
 
 

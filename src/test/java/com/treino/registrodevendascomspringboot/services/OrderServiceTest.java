@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.treino.registrodevendascomspringboot.entities.Order;
 import com.treino.registrodevendascomspringboot.entities.User;
+import com.treino.registrodevendascomspringboot.entities.dto.UserDTO;
 import com.treino.registrodevendascomspringboot.entities.enums.OrderStatus;
 import com.treino.registrodevendascomspringboot.repositories.OrderRepository;
 import com.treino.registrodevendascomspringboot.services.exceptions.ObjectNotFoundException;
@@ -81,7 +82,7 @@ class OrderServiceTest {
 		assertNotNull(response);
 		assertEquals(3,response.size());
 		assertEquals(Order.class,response.get(0).getClass());
-		assertEquals(User.class,response.get(0).getClient().getClass());
+		assertEquals(UserDTO.class,response.get(0).getClient().getClass());
 		
 	}
 
@@ -95,7 +96,7 @@ class OrderServiceTest {
 		assertEquals(response.getId(),order1.getId());
 		assertEquals(response.getOrderStatus(),order1.getOrderStatus());
 		assertEquals(response.getMoment(),order1.getMoment());
-		assertEquals(response.getClient(),order1.getClient());
+		assertEquals(UserDTO.class,response.getClient().getClass());
 		
 	}
 	@Test

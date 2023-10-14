@@ -16,13 +16,12 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false, of= {"id"})
 @NoArgsConstructor
 @Table(name="tb_user")
-public class User implements Serializable{
+public class User  implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@Id

@@ -1,1 +1,1 @@
-Este projeto está sendo criado tendo como inspiração o meu projeto "cadastro-de-vendas-com-springboot". O intuito é reaquecer meu conhecimento em Spring Boot, além de utilizar meus conhecimentos em testes unitários que adquiri recentemente(não estando presente no projeto original) 
+Anteriormente, este projeto tinha como intuito exclusivo a prática de testes unitários. Porém, com o tempo, decidi incluir outras coisas nele, como Content Negotiation e HATEOAS, visando a praticar e aperfeiçoar meus conhecimentos em Spring Boot. 

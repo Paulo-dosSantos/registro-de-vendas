@@ -40,7 +40,7 @@ class UserServiceTest {
 
 	private static final String PASSWORD = "hellblazer";
 
-	private static final String PHONE = "2198349389";
+	private static final String PHONE = "219834938";
 
 	private static final String EMAIL = "johnzinho@gmail.com";
 
@@ -78,7 +78,7 @@ class UserServiceTest {
 		user=new User(ID, NAME,
 				EMAIL, PHONE, PASSWORD);
 		userDTO=new UserDTO(ID, NAME,
-				EMAIL, PHONE, PASSWORD);
+				EMAIL, PHONE);
 		optionalUser=Optional.of(new User(ID, NAME,
 				EMAIL, PHONE, PASSWORD));
 		
@@ -118,10 +118,9 @@ class UserServiceTest {
 
 	@Test
 	void testUpdate() {
-		when(repository.save(any())).thenReturn(user);
-		
+		when(repository.save(any(User.class))).thenReturn(user);
+		when(mapper.map(any(), any())).thenReturn(User.class);
 		User response=service.update(ID,userDTO);
-		
 		assertNotNull(response);
 		assertEquals(ID,response.getId());
 		assertEquals(NAME,response.getName());

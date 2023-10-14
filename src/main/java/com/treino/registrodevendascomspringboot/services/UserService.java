@@ -7,9 +7,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.treino.registrodevendascomspringboot.entities.User;
 import com.treino.registrodevendascomspringboot.entities.dto.UserDTO;
 import com.treino.registrodevendascomspringboot.repositories.UserRepository;
+import com.treino.registrodevendascomspringboot.resources.UserResource;
 import com.treino.registrodevendascomspringboot.services.exceptions.DataException;
 import com.treino.registrodevendascomspringboot.services.exceptions.DataIntegrityViolationException;
 import com.treino.registrodevendascomspringboot.services.exceptions.ObjectNotFoundException;
@@ -27,8 +29,8 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	public User findById(Long id) {
-		Optional<User>user=userRepository.findById(id);
-		return user.orElseThrow(()->new ObjectNotFoundException("Objeto não encontrado"));
+		User user= userRepository.findById(id).orElseThrow(()->new ObjectNotFoundException("Objeto não encontrado"));
+		return user;
 	}
 	public User update(Long id,UserDTO obj) {
 		obj.setId(id);

@@ -2,12 +2,10 @@ package com.treino.registrodevendascomspringboot.resources;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -22,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.treino.registrodevendascomspringboot.entities.Order;
 import com.treino.registrodevendascomspringboot.entities.User;
+import com.treino.registrodevendascomspringboot.entities.dto.UserDTO;
 import com.treino.registrodevendascomspringboot.entities.enums.OrderStatus;
 import com.treino.registrodevendascomspringboot.services.OrderService;
 @SpringBootTest
@@ -80,7 +79,7 @@ class OrderResourceTest {
 		assertEquals(Order.class,response.getBody().get(0).getClass());
 		assertEquals(3,response.getBody().size());
 		assertEquals(Instant.class,response.getBody().get(0).getMoment().getClass());
-		assertEquals(User.class,response.getBody().get(0).getClient().getClass());
+		assertEquals(UserDTO.class,response.getBody().get(0).getClient().getClass());
 		assertEquals(OrderStatus.class,response.getBody().get(0).getOrderStatus().getClass());
 		assertEquals(HttpStatus.OK,response.getStatusCode());
 	}
@@ -94,7 +93,7 @@ class OrderResourceTest {
 		assertEquals(ResponseEntity.class,response.getClass());
 		assertEquals(Order.class,response.getBody().getClass());
 		assertEquals(Instant.class,response.getBody().getMoment().getClass());
-		assertEquals(User.class,response.getBody().getClient().getClass());
+		assertEquals(UserDTO.class,response.getBody().getClient().getClass());
 		assertEquals(OrderStatus.class,response.getBody().getOrderStatus().getClass());
 		assertEquals(HttpStatus.OK,response.getStatusCode());
 	

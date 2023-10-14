@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -21,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name="tb_category")
 @Data
 @EqualsAndHashCode(callSuper = false, of= {"id"})
-public class Category implements Serializable {
+public class Category extends RepresentationModel<Order> implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
