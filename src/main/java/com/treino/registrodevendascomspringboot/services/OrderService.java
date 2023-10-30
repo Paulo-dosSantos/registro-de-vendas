@@ -27,5 +27,7 @@ public class OrderService {
 		return order.orElseThrow(()->new ObjectNotFoundException("Objeto não encontrado") );
 		
 	}
-	
+	public void delete(Long id) {
+		orderRepository.deleteById(id);
+	}
 }
