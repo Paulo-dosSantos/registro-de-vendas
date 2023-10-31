@@ -22,6 +22,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -29,6 +31,7 @@ import lombok.Setter;
 @Data
 @EqualsAndHashCode(callSuper = false, of= {"id"})
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Product extends RepresentationModel<Product> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -36,9 +39,17 @@ public class Product extends RepresentationModel<Product> implements Serializabl
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@NonNull
 	private String name;
+	
+	@NonNull
 	private String description;
+	
+	@NonNull
 	private Double price;
+	
+	@NonNull
 	private String imgUrl;
 	
 	@ManyToMany
@@ -52,13 +63,6 @@ public class Product extends RepresentationModel<Product> implements Serializabl
 	@Getter(AccessLevel.NONE)
 	private Set<OrderItem>items=new HashSet<>();
 
-	public Product(Long id, String name, String description, Double price, String imgUrl) {
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.imgUrl = imgUrl;
-	}
 	@JsonIgnore
 	public Set<Order>getOrders(){
 		Set<Order>set=new HashSet<>();

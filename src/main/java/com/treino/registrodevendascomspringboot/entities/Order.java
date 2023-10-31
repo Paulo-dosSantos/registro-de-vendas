@@ -3,13 +3,18 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.treino.registrodevendascomspringboot.entities.dto.UserDTO;
 import com.treino.registrodevendascomspringboot.entities.enums.OrderStatus;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,9 +28,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name="tb_order")
 @Data
@@ -38,15 +46,21 @@ public class Order extends RepresentationModel<Order> implements Serializable {
 	private Long id;
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="GMT")
+	@NonNull
 	private Instant moment;
 	
 	@ManyToOne
 	@JoinColumn(name="client_id")
 	@Getter(AccessLevel.NONE)
+	@NonNull
 	private User client;
-	private Integer orderStatus;
+	
+	@NonNull
+	@Enumerated(EnumType.STRING)
+	private OrderStatus orderStatus;
 	
 	@OneToOne(mappedBy ="order",cascade=CascadeType.ALL)
+	@NonNull
 	private Payment payment;
 	
 	@OneToMany(mappedBy ="id.order",cascade=CascadeType.ALL)
@@ -60,14 +74,7 @@ public class Order extends RepresentationModel<Order> implements Serializable {
 		this.client = client;
 		setOrderStatus(orderStatus);
 	}
-	public OrderStatus getOrderStatus() {
-		return OrderStatus.valueOf(orderStatus);
-	}
-	public void setOrderStatus(OrderStatus orderStatus) {
-		if(orderStatus!=null) {
-			this.orderStatus=orderStatus.getCode();
-		}
-	}
+	
 	public double getTotal() {
 		double total=items.stream().map(x->x.getSubTotal()).reduce(0.0,(x,y)->x+y);
 		return total;
