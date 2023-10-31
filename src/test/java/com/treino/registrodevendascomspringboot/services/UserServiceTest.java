@@ -75,12 +75,12 @@ class UserServiceTest {
 	}
 
 	private void startUser() {
-		user=new User(ID, NAME,
+		user=new User( NAME,
 				EMAIL, PHONE, PASSWORD);
-		userDTO=new UserDTO(ID, NAME,
+		user.setId(ID);
+		userDTO=new UserDTO( NAME,
 				EMAIL, PHONE);
-		optionalUser=Optional.of(new User(ID, NAME,
-				EMAIL, PHONE, PASSWORD));
+		optionalUser=Optional.of(user);
 		
 	}
 

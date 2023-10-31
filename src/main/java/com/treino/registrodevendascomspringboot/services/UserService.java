@@ -7,11 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.treino.registrodevendascomspringboot.entities.User;
 import com.treino.registrodevendascomspringboot.entities.dto.UserDTO;
 import com.treino.registrodevendascomspringboot.repositories.UserRepository;
-import com.treino.registrodevendascomspringboot.resources.UserResource;
 import com.treino.registrodevendascomspringboot.services.exceptions.DataException;
 import com.treino.registrodevendascomspringboot.services.exceptions.DataIntegrityViolationException;
 import com.treino.registrodevendascomspringboot.services.exceptions.ObjectNotFoundException;
@@ -33,11 +31,19 @@ public class UserService {
 		return user;
 	}
 	public User update(Long id,UserDTO obj) {
-		obj.setId(id);
 		User objUser=mapper.map(obj, User.class);
 		analyzeNumber(objUser);
 		findByEmail(objUser);
-		return userRepository.save(objUser);
+		User entity= userRepository.getReferenceById(id);
+		updateData(entity,objUser);
+		return userRepository.save(entity);
+	}
+	
+	private void updateData(User entity, User objUser) {
+		entity.setName(objUser.getName());
+		entity.setEmail(objUser.getEmail());
+		entity.setPassword(objUser.getPassword());
+		
 	}
 	private void findByEmail(User obj) {
 		Optional<User>user=userRepository.findByEmail(obj.getEmail());
