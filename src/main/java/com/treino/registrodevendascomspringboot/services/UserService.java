@@ -56,8 +56,7 @@ public class UserService {
 	public User insert(User obj) {
 		analyzeNumber(obj);
 		findByEmail(obj);
-		User savedUser= userRepository.save(obj);
-		return savedUser;
+		return userRepository.save(obj);
 	}
 	public void analyzeNumber(User obj) { 
 		String number=obj.getPhone();

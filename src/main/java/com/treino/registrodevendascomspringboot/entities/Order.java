@@ -67,9 +67,7 @@ public class Order extends RepresentationModel<Order> implements Serializable {
 	@Setter(AccessLevel.NONE)
 	private Set<OrderItem>items=new HashSet<>();
 	
-	public Order(Long id, Instant moment, User client, OrderStatus orderStatus) {
-		super();
-		this.id = id;
+	public Order( Instant moment, User client, OrderStatus orderStatus) {
 		this.moment = moment;
 		this.client = client;
 		setOrderStatus(orderStatus);

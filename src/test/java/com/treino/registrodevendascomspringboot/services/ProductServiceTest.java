@@ -52,8 +52,9 @@ class ProductServiceTest {
 	}
 
 	private void startUser() {
-		product=new Product(ID, NAME, DESCRIPTION, PRICE, IMGURL); 
-		optionalProduct= Optional.of(new Product(ID, NAME, DESCRIPTION, PRICE, IMGURL) );
+		product=new Product( NAME, DESCRIPTION, PRICE, IMGURL); 
+		product.setId(ID);
+		optionalProduct= Optional.of(product );
 		
 	}
 

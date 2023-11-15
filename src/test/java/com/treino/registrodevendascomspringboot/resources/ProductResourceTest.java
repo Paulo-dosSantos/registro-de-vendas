@@ -53,7 +53,8 @@ class ProductResourceTest {
 	}
 
 	private void startUser() {
-		product=new Product(ID, NAME, DESCRIPTION, PRICE, IMGURL); 
+		product=new Product( NAME, DESCRIPTION, PRICE, IMGURL); 
+		product.setId(ID);
 		
 	}
 

@@ -50,18 +50,25 @@ class OrderResourceTest {
 	}
 
 	private void startUser() {
-		usuario1=new User(1L, "John Constantine",
+		usuario1=new User( "John Constantine",
 				"johnzinho@gmail.com", "2194938932", "hellblazer");
 		
-	usuario2=new User(2L, "Bruce Wayne",
+		usuario1.setId(1L);
+		
+	usuario2=new User( "Bruce Wayne",
 			"waynetech@gmail.com", "2194252545", "coringa_de_calcinha");
+	usuario2.setId(2L);
 	
-	order1 = new Order(1L, Instant.parse("2019-06-20T19:53:07Z"), usuario1,OrderStatus.PAID);
+	order1 = new Order( Instant.parse("2019-06-20T19:53:07Z"), usuario1,OrderStatus.PAID);
 	
-	 order2 = new Order(2L, Instant.parse("2019-07-21T03:42:10Z"), usuario2,
+	order1.setId(1L);
+	
+	 order2 = new Order( Instant.parse("2019-07-21T03:42:10Z"), usuario2,
 			 OrderStatus.WAITING_PAYMENT);
-	 order3 = new Order(3L, Instant.parse("2019-07-22T15:21:22Z"), usuario1, 
+	 order2.setId(2L);
+	 order3 = new Order( Instant.parse("2019-07-22T15:21:22Z"), usuario1, 
 			 OrderStatus.WAITING_PAYMENT); 
+	 order3.setId(3L);
 	 
 	
 	 

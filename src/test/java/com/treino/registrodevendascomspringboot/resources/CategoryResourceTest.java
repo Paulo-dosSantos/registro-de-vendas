@@ -47,8 +47,8 @@ class CategoryResourceTest {
 	}
 
 	private void startUser() {
-		category=new Category(ID, NAME);
-		
+		category=new Category( NAME);
+		category.setId(1L);
 	}
 
 	@Test
@@ -75,7 +75,7 @@ class CategoryResourceTest {
 		assertNotNull(response);
 		assertEquals(ResponseEntity.class,response.getClass());
 		assertEquals(Category.class,response.getBody().getClass());
-		assertEquals(ID,response.getBody().getId());
+		assertEquals(1L,response.getBody().getId());
 		assertEquals(NAME,response.getBody().getName());
 	
 	

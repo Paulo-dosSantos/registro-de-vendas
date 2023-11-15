@@ -43,13 +43,14 @@ class CategoryServiceTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		;
+		
 	}
 
 	private  void startUser() {
 		
-		category=new Category(ID, NAME);
-		optionalCategory=Optional.of(new Category(ID, NAME));
+		category=new Category(NAME);
+		category.setId(ID);
+		optionalCategory=Optional.of(new Category( NAME));
 		
 		
 	}
