@@ -48,4 +48,4 @@ O modelo de domínio do sistema é composto pelas seguintes entidades:
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/sistema-cadastro-vendas.git
+   git clone https://github.com/Paulo-dosSantos/sistema-cadastro-vendas.git
